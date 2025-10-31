@@ -174,15 +174,19 @@ body {
 #birthday-section .title .birthday{
     color: var(--color-text-pink);
 }
-@keyframes topHat{
-    20%, 30%{
-        top: -30px;
-        transform-origin: left;
-        transform: rotate(-40deg);
+/* ✅ REPLACEMENT ANIMATION */
+@keyframes topHat {
+    0% {
+        transform: translateY(-500px) rotate(-40deg); /* Start way off-screen */
+        opacity: 0;
     }
-    35%, 100%{
-        top: -30px;
-        transform: rotate(0deg);
+    70% {
+        transform: translateY(-500px) rotate(-40deg); /* Stay there */
+        opacity: 1; /* Appear */
+    }
+    100% {
+        transform: translateY(0) rotate(-40deg); /* Fall into place */
+        opacity: 1;
     }
 }
 #birthday-section .date__of__birth, #birthday-section .name {
@@ -854,34 +858,58 @@ body {
 }
 
 /* === Final Hat Animation & Alignment Fix === */
-#birthday-section .title .hat {
+#birthday-section .title .hat-img {
   position: absolute;
   right: 45px;
-  top: -350px;
-  transform: rotate(-40deg);
+  top: -30px; /* This is the FINAL desktop position */
+  transform: translateY(-500px) rotate(-40deg); /* This is the START position */
   z-index: 2;
   pointer-events: none;
+  
+  /* FIX: Hides hat before animation */
   opacity: 0;
-  visibility: hidden;
+  visibility: hidden; 
 }
 
-/* Only drop down after the word animations complete */
-#birthday-section.show .title .hat {
-  animation: topHat 2.8s 8.6s forwards ease-in-out;
-  opacity: 1;
+/* This block triggers the animation */
+#birthday-section.show .title .hat-img {
+  animation: topHat 2.8s 8.6s forwards ease-in-out; 
+  /* 'visibility' is set so the animation can play */
   visibility: visible;
 }
 
-/* ✅ Correct Mobile Hat Position (from original file) */
+/* FIX: This block sets the FINAL mobile position */
 @media (max-width: 658px) {
-  #birthday-section .title .hat {
-    right: -98px;
-    top: -51px !important; /* The !important is needed from the original */
-    transform: rotate(-40deg);
-    
-    /* Reset desktop styles that interfere */
-    left: unset;
-    width: unset;
+  #birthday-section .title .hat-img {
+    /* Override desktop position */
+    right: unset; 
+    left: 70%;
+    top: -165px; /* FINAL mobile position */
+    width: 96px;
+    /* START mobile position (applies animation) */
+    transform: translateX(-50%) translateY(-500px) rotate(-38deg); 
+    transform-origin: 50% 65%;
+  }
+}
+
+/* FIX: Restores the other screen sizes */
+@media (max-width: 420px) {
+  #birthday-section .title .hat-img {
+    left: 70%;
+    top: -150px; /* FINAL mobile position */
+    width: 95px;
+    transform: translateX(-50%) translateY(-500px) rotate(-36deg);
+    transform-origin: 50% 68%;
+  }
+}
+
+@media (max-width: 360px) {
+  #birthday-section .title .hat-img {
+    left: 68%;
+    top: -125px; /* FINAL mobile position */
+    width: 85px;
+    transform: translateX(-50%) translateY(-500px) rotate(-34deg);
+    transform-origin: 50% 70%;
   }
 }
 
