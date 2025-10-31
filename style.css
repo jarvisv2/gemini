@@ -854,32 +854,34 @@ body {
 }
 
 /* === Final Hat Animation & Alignment Fix === */
-#birthday-section .title .hat-img {
+#birthday-section .title .hat {
   position: absolute;
-  right: 45px;              /* ✅ CORRECT DESKTOP X-POSITION */
-  top: -350px;              /* ✅ CORRECT DESKTOP Y-POSITION */
-  transform: rotate(-40deg); /* Simplified transform */
+  right: 45px;
+  top: -350px;
+  transform: rotate(-40deg);
   z-index: 2;
   pointer-events: none;
-  opacity: 0;         
-  visibility: hidden; 
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* Only drop down after the word animations complete */
-#birthday-section.show .title .hat-img {
-  animation: topHat 2.8s 8.6s forwards ease-in-out; /* start slightly later */
+#birthday-section.show .title .hat {
+  animation: topHat 2.8s 8.6s forwards ease-in-out;
   opacity: 1;
   visibility: visible;
 }
 
-/* ✅ Correct Mobile Hat Position (for all phone sizes) */
+/* ✅ Correct Mobile Hat Position (from original file) */
 @media (max-width: 658px) {
-  #birthday-section .title .hat-img {
-    right: -90px;           /* ✅ CORRECT MOBILE X-POSITION */
-    top: -45px;             /* ✅ CORRECT MOBILE Y-POSITION */
-    width: 130px;           /* Set back to original size */
-    transform: rotate(-40deg); /* Use the standard rotation */
-    /* All other properties are inherited correctly */
+  #birthday-section .title .hat {
+    right: -98px;
+    top: -51px !important; /* The !important is needed from the original */
+    transform: rotate(-40deg);
+    
+    /* Reset desktop styles that interfere */
+    left: unset;
+    width: unset;
   }
 }
 
