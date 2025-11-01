@@ -163,6 +163,7 @@ body {
     opacity: 0;
     visibility: hidden;
     animation: txtTranslateY .5s var(--t) forwards;
+    animation-delay: calc(var(--t) + 3s);
 }
 @keyframes txtTranslateY{
     100%{
@@ -174,19 +175,15 @@ body {
 #birthday-section .title .birthday{
     color: var(--color-text-pink);
 }
-/* ✅ REPLACEMENT ANIMATION */
-@keyframes topHat {
-    0% {
-        transform: translateY(-500px) rotate(-40deg); /* Start way off-screen */
-        opacity: 0;
+@keyframes topHat{
+    20%, 30%{
+        top: -30px;
+        transform-origin: left;
+        transform: rotate(-40deg);
     }
-    70% {
-        transform: translateY(-500px) rotate(-40deg); /* Stay there */
-        opacity: 1; /* Appear */
-    }
-    100% {
-        transform: translateY(0) rotate(-40deg); /* Fall into place */
-        opacity: 1;
+    35%, 100%{
+        top: -30px;
+        transform: rotate(0deg);
     }
 }
 #birthday-section .date__of__birth, #birthday-section .name {
@@ -807,6 +804,7 @@ body {
 #birthday-section.show .title .happy span,
 #birthday-section.show .title .birthday span {
   animation: txtTranslateY 0.6s var(--t) ease-in-out forwards;
+  animation-delay: calc(var(--t) + 3s);
 }
 
 /* 🎉 Restore Flag Swing Animation */
@@ -860,58 +858,58 @@ body {
 /* === Final Hat Animation & Alignment Fix === */
 #birthday-section .title .hat-img {
   position: absolute;
-  right: 45px;
-  top: -30px; /* This is the FINAL desktop position */
-  transform: translateY(-500px) rotate(-40deg); /* This is the START position */
+  right: 60px;        /* fine-tuned horizontal offset */
+  top: -290px;        /* same height as live version */
+  transform: rotate(-40deg);
   z-index: 2;
   pointer-events: none;
-  
-  /* FIX: Hides hat before animation */
-  opacity: 0;
-  visibility: hidden; 
+  opacity: 0;         /* start hidden */
+  visibility: hidden; /* invisible until animation */
 }
 
-/* This block triggers the animation */
+/* Only drop down after the word animations complete */
 #birthday-section.show .title .hat-img {
-  animation: topHat 2.8s 8.6s forwards ease-in-out; 
-  /* 'visibility' is set so the animation can play */
+  animation: topHat 2.8s 8.6s forwards ease-in-out; /* start slightly later */
+  opacity: 1;
   visibility: visible;
 }
 
-/* FIX: This block sets the FINAL mobile position */
+/* ✅ Correct Mobile Hat Position (for all phone sizes) */
 @media (max-width: 658px) {
   #birthday-section .title .hat-img {
-    /* Override desktop position */
-    right: unset; 
-    left: 70%;
-    top: -165px; /* FINAL mobile position */
-    width: 96px;
-    /* START mobile position (applies animation) */
-    transform: translateX(-50%) translateY(-500px) rotate(-38deg); 
+    position: absolute;
+    left: 70%;              /* 👉 shifted slightly more right */
+    top: -165px;            /* ⬆️ raised a little */
+    width: 96px;            /* balanced size */
+    transform: translateX(-50%) rotate(-38deg);
     transform-origin: 50% 65%;
+    z-index: 2;
+    pointer-events: none;
   }
 }
 
-/* FIX: Restores the other screen sizes */
 @media (max-width: 420px) {
   #birthday-section .title .hat-img {
-    left: 70%;
-    top: -150px; /* FINAL mobile position */
-    width: 95px;
-    transform: translateX(-50%) translateY(-500px) rotate(-36deg);
+    left: 70%;               /* moved slightly right for Vivo T2 5G */
+    top: -150px;             /* raised a bit for perfect Y-alignment */
+    width: 95px;             /* balanced size */
+    transform: translateX(-50%) rotate(-36deg);
     transform-origin: 50% 68%;
+    z-index: 2;
+    pointer-events: none;
   }
 }
 
 @media (max-width: 360px) {
   #birthday-section .title .hat-img {
     left: 68%;
-    top: -125px; /* FINAL mobile position */
+    top: -125px;
     width: 85px;
-    transform: translateX(-50%) translateY(-500px) rotate(-34deg);
+    transform: translateX(-50%) rotate(-34deg);
     transform-origin: 50% 70%;
   }
 }
+
 
 
 
