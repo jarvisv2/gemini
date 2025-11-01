@@ -910,6 +910,24 @@ body {
   }
 }
 
+/* 🧩 Hint message animation and style */
+@keyframes hintFade {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+#emoji-hint {
+  animation: hintFade 1s ease forwards;
+  animation-delay: 0.6s; /* appears 1.5s after page loads */
+  opacity: 0;
+}
+
+#page2 {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+#page2.show {
+  opacity: 1;
+}
 
 
 
