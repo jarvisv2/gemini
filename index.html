@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Loader & Countdown Combined</title>
+  <title>HAPPY BIRTHDAY SUPRIYA ❤️</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Loader (Page 1) Styles */
@@ -54,8 +54,17 @@
         <span class="wiggle" data-emoji style="--dur:2s; animation-delay:.6s;">💖</span>
         <span class="wiggle" data-emoji style="--dur:2s; animation-delay:.8s;">🎈</span>
       </div>
-    </div>
-  </div>
+
+
+      <!-- 🧩 Add this new hint box below -->
+      <div id="emoji-hint"
+          class="mt-5 text-center text-pink-600 font-semibold bg-white/80 backdrop-blur-sm px-4 py-2 rounded-2xl border-2 border-pink-200 shadow-md inline-block">
+        Click emojis 🥰
+      </div>
+
+
+    </div> <!-- ✅ closes white box -->
+</div> <!-- ✅ closes #page1 -->
 
   <!-- PAGE 2: Countdown -->
   <div id="page2" style="display:none">
@@ -146,16 +155,26 @@
         span.style.pointerEvents = 'none';
         clickedCount++;
         if (clickedCount === emojiSpans.length) {
-          setTimeout(() => {
-            // Switch to page 2 instead of navigating away
-            document.getElementById('page1').style.display = 'none';
-            document.getElementById('page2').style.display = 'block';
-            // Init page2 animation/effects after showing
-            if (typeof window.page2init === 'function') window.page2init();
-          }, 450);
-        }
-      });
-    });
+        document.getElementById('emoji-hint').style.display = 'none';
+        const p1 = document.getElementById('page1');
+        p1.style.opacity = '0';
+
+        setTimeout(() => {
+        // Hide Page 1 completely
+        p1.style.display = 'none';
+
+        // Fade in Page 2 smoothly
+        const p2 = document.getElementById('page2');
+        p2.style.display = 'block';
+        void p2.offsetWidth; // ⚙️ force reflow so CSS transition triggers
+        p2.classList.add('show');
+
+        // Run your countdown setup
+        if (typeof window.page2init === 'function') window.page2init();
+      }, 600); // same duration as fade-out
+    }
+  });
+});
 
     // --- PAGE 2: Setup for floating hearts & countdown timer ---
 function page2init() {
@@ -643,7 +662,7 @@ function startDateTyping(delay=0){
             clearInterval(timeDatetxt);
         }
     }, 150);
-}, 10500);
+}, 11000);
 }
 
 
